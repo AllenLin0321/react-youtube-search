@@ -6,13 +6,18 @@ import youtube from '../apis/youtube';
 
 class App extends React.Component {
   state = { videos: [], selectedVideo: null };
+
+  componentDidMount() {
+    this.onFormSubmit('React javascript');
+  }
+
   onFormSubmit = async term => {
     const res = await youtube.get('/search', {
       params: {
         q: term
       }
     });
-    this.setState({ videos: res.data.items });
+    this.setState({ videos: res.data.items, selectedVideo: res.data.items[0] });
   };
 
   onViedoSelected = selectedVideo => {
